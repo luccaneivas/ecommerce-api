@@ -1,6 +1,7 @@
 <p align="center">
   <img src="./e-commerce.svg" width="200" alt="Nest Logo" /></a>
 </p>
+<h1 align="center">e-commerce API</h1>
 
   <p align="center">A e-commerce API made with <a href="https://nestjs.com/" target="_blank">NestJS</a> framework.</p>
 
