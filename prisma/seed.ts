@@ -5,18 +5,36 @@ import { faker } from '@faker-js/faker';
 const prisma = new PrismaClient();
 
 async function main() {
+  // create companies
+  for (let i = 0; i < 10; i++) {
+    const cnpj = faker.random.numeric(14);
+
+    await prisma.company.upsert({
+      where: { cnpj },
+      update: {},
+      create: {
+        name: faker.company.name(),
+        cnpj,
+      },
+    });
+  }
+
+  // create products
   for (let i = 0; i < 10; i++) {
     const title = faker.commerce.productName();
+    const companyId = parseInt(faker.random.numeric());
 
     await prisma.product.upsert({
       where: { title },
-      update: {},
+      update: {
+        companyId,
+      },
       create: {
         title,
         description: faker.commerce.productDescription(),
         value: parseFloat(faker.commerce.price()),
         currency: faker.finance.currencyCode(),
-        company: parseInt(faker.random.numeric(1)),
+        companyId,
         quantity: parseInt(faker.random.numeric(1)),
         available: true,
       },

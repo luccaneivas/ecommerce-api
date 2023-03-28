@@ -18,9 +18,6 @@ export class ProductEntity implements Product {
   currency: string;
 
   @ApiProperty()
-  company: number;
-
-  @ApiProperty()
   quantity: number;
 
   @ApiProperty({ default: true })
@@ -31,4 +28,7 @@ export class ProductEntity implements Product {
 
   @ApiProperty()
   updatedAt: Date;
+
+  @ApiProperty({ required: false, nullable: true })
+  companyId: number;
 }

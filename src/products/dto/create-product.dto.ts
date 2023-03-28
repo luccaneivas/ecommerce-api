@@ -36,11 +36,6 @@ export class CreateProductDto {
   @IsNumber()
   @IsNotEmpty()
   @ApiProperty()
-  company: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty()
   quantity: number;
 
   @IsBoolean()
