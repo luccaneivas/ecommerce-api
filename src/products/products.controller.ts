@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -39,8 +40,14 @@ export class ProductsController {
 
   @ApiOkResponse({ type: ProductEntity })
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.findOne(id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const product = await this.productsService.findOne(id);
+
+    if (!product) {
+      throw new NotFoundException(`Product ${id} doesn't exist.`);
+    }
+
+    return product;
   }
 
   @ApiOkResponse({ type: ProductEntity })
