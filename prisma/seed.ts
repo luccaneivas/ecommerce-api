@@ -19,6 +19,27 @@ async function main() {
     });
   }
 
+  // create users
+  for (let i = 0; i < 10; i++) {
+    const cpf = faker.random.numeric(10);
+    const name = faker.name.fullName();
+    const companyId = parseInt(faker.random.numeric(1));
+
+    await prisma.user.upsert({
+      where: { cpf },
+      update: {
+        companyId,
+      },
+      create: {
+        name,
+        cpf,
+        email: faker.internet.email(name),
+        password: faker.internet.password(),
+        companyId,
+      },
+    });
+  }
+
   // create products
   for (let i = 0; i < 10; i++) {
     const title = faker.commerce.productName();
