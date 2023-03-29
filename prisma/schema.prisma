@@ -22,6 +22,7 @@ model Product {
   updatedAt   DateTime @updatedAt
   company     Company? @relation(fields: [companyId], references: [id])
   companyId   Int?
+  sales       Sales[]
 }
 
 model Company {
@@ -44,4 +45,15 @@ model User {
   updatedAt DateTime @updatedAt
   companyId Int?
   company   Company? @relation(fields: [companyId], references: [id])
+  purchases Sales[]
+}
+
+model Sales {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  createdAt DateTime @default(now())
 }
